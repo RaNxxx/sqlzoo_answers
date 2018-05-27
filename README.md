@@ -8,11 +8,11 @@ There are two main reasons:
 
 I am also a SQL beginner.
 I summarized my own answers of those practice questions that I solved and update them to Github.
-My answers might not the best,
+My answers might not be the best,
 but I still hope they can help you in some way.
 
 I put answers from different chapters to different documents.
 You can find them by the title of the documents.
-In documents, I record every question’s index and Japanese text so that it’s very easy to find the answer you are looking for.
+In documents, I recorded every question’s index and Japanese text so that it’s very easy to find the answer you are looking for.
 
 Feel free to give me any advice.
