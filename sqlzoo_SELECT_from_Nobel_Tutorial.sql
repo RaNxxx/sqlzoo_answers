@@ -47,45 +47,59 @@ SELECT yr,subject,winner FROM nobel
 /*---------
 Q7: ファーストネームが John の受賞者を表示
 ---------*/
+
 SELECT winner FROM nobel
   WHERE winner LIKE  'John%'
 
 /*---------
 Q8: 1980年のノーベル物理賞 physics の受賞者　と　1984年の化学賞 chemistry の受賞者を共に表示する
 ---------*/
+
 SELECT yr,subject,winner FROM nobel
   WHERE (yr = 1980 AND subject = 'physics') OR (yr = 1984 AND subject = 'chemistry')
 
 /*---------
 Q9: 1980年の　化学 Chemistry と医学 Medicine 以外で、賞の年度、分野、名前を表示
 ---------*/
+
 SELECT yr, subject, winner FROM nobel
   WHERE yr = 1980 AND subject NOT IN ('chemistry', 'medicine')
 
 /*---------
 Q10: 1910年以前（1910は含まず）の　初期の医学 Medicine の受賞者　と 2004年以降（2004は含む）の　最近の文学 Literature の受賞者　を共に表示する
 ---------*/
+
 SELECT yr, subject, winner FROM nobel
   WHERE (yr < 1910 AND subject = 'medicine') OR (yr >= 2004 AND subject = 'literature')
 
 /*---------
 Q11: PETER GRÜNBERG　の受賞内容詳細を検索する。 ウムラウトの入力方法（Ü　の入力方法）を調べ検索キーワードで機能させる方法を調べる
 ---------*/
+
 SELECT yr, subject, winner FROM nobel
   WHERE winner = 'PETER GRÜNBERG'
 
 /*---------
 Q12: EUGENE O'NEILL の全ての受賞内容詳細を検索する
 ---------*/
+
 SELECT yr, subject, winner FROM nobel
   WHERE winner = 'EUGENE O''NEILL'
 
 /*---------
 Q13: 騎士の受賞者リストを表示する。 Sir. で始まる受賞者の 受賞者、年、分野　を表示する。 年が新しい順に、同年内では名前順に表示する
 ---------*/
+
 SELECT winner, yr, subject FROM nobel
   WHERE winner LIKE 'Sir%'
 
 /*---------
 Q14: 1984年の賞の　受賞者 winner と分野 subject を分野と受賞者の名前順で表示する。ただし化学 Chemistry と物理学 Physics は最後の方に表示する
 ---------*/
+
+SELECT winner, subject FROM nobel
+  WHERE yr = 1984
+  ORDER BY
+    CASE WHEN subject IN ('Physics', 'Chemistry') THEN 1 ELSE 0 END,
+    subject,
+    winner
