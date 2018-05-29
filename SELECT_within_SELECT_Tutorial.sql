@@ -51,28 +51,32 @@ SELECT name FROM world
 Q7: 各大陸のもっとも大きな国（面積で）の大陸、国名、面積を表示する
 ---------*/
 
-
-
-/*---------
-Q1:
----------*/
+SELECT continent, name, (SELECT MAX(area) FROM world as e2 WHERE e1.continent = e2.continent)
+  FROM world as e1
+    WHERE e1.area >= (SELECT MAX(area) FROM world as e2 WHERE e1.continent = e2.continent)
 
 /*---------
-Q1:
+Q8: 各大陸の中でアルファベット順で先頭になる国の大陸と国名を表示
 ---------*/
 
-/*---------
-Q1:
----------*/
+SELECT continent, name FROM world as e1
+  WHERE e1.name = (SELECT name FROM world as e2
+    WHERE e1.continent = e2.continent
+      ORDER BY continent, name
+        LIMIT 1)
 
 /*---------
-Q1:
+Q9: 大陸に属する各国の人口が25000000以下である大陸を見つけ、それらの大陸に属する国の名前と大陸と人口を表示
 ---------*/
 
-/*---------
-Q1:
----------*/
+SELECT name, continent, population FROM world as e1
+  WHERE 25000000 > ALL(SELECT population FROM world as e2
+    WHERE e1.continent = e2.continent)
 
 /*---------
-Q1:
+Q10: 同じ大陸にある他の全ての国よりも３倍は大きな人口の国の、国名と大陸を表示
 ---------*/
+
+SELECT name, continent FROM world as e1
+  WHERE e1.population >= ALL(SELECT population*3 FROM world as e2
+    WHERE e1.continent = e2.continent AND e1.name != e2.name)
